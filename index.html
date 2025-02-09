@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Moedas</title>    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="converter">
+        <h2>Conversor de Moedas</h2>
+        <label for="fromCurrency">De:</label>
+        <select id="fromCurrency"></select>
+        <button id="swap">⇅</button>
+        <label for="toCurrency">Para:</label>
+        <select id="toCurrency"></select>
+        <label for="amount">Valor:</label>
+        <input type="number" id="amount" placeholder="Insira o valor" />
+        <button id="convertButton">Converter</button>
+        <p id="result"></p>
+        <p id="lastUpdate"></p>
+    </div>
+    <script>
+        const apiKey = 'SUA_API_KEY_AQUI'; // Substitua pela sua chave da API
+        const apiUrl = 'https://v6.exchangerate-api.com/v6/' + apiKey + '/latest/';
+        const selectFrom = document.getElementById("fromCurrency");
+        const selectTo = document.getElementById("toCurrency");
+        const result = document.getElementById("result");
+        const lastUpdate = document.getElementById("lastUpdate");
+
+        async function loadCurrencies() {
+            try {
+                const response = await fetch(`https://v6.exchangerate-api.com/v6/${apiKey}/codes`);
+                const data = await response.json();
+                if (data.result === "success") {
+                    data.supported_codes.forEach(code => {
+                        const option1 = new Option(`${code[1]} (${code[0]})`, code[0]);
+                        const option2 = new Option(`${code[1]} (${code[0]})`, code[0]);
+                        selectFrom.appendChild(option1);
+                        selectTo.appendChild(option2);
+                    });
+                }
+            } catch (error) {
+                console.error("Erro ao carregar moedas", error);
+            }
+        }
+
+        document.getElementById("swap").addEventListener("click", () => {
+            const temp = selectFrom.value;
+            selectFrom.value = selectTo.value;
+            selectTo.value = temp;
+        });
+
+        document.getElementById("convertButton").addEventListener("click", async () => {
+            const fromCurrency = selectFrom.value;
+            const toCurrency = selectTo.value;
+            const amount = parseFloat(document.getElementById("amount").value);
+            if (isNaN(amount) || amount <= 0) {
+                result.innerText = "Por favor, insira um valor válido.";
+                return;
+            }
+            try {
+                const response = await fetch(apiUrl + fromCurrency);
+                const data = await response.json();
+                if (data.result === "success") {
+                    const rate = data.conversion_rates[toCurrency];
+                    const convertedValue = (amount * rate).toFixed(2);
+                    result.innerText = `${amount} ${fromCurrency} = ${convertedValue} ${toCurrency}`;
+                    lastUpdate.innerText = `Última atualização: ${new Date(data.time_last_update_utc).toLocaleString()}`;
+                    localStorage.setItem("lastConversion", JSON.stringify({ fromCurrency, toCurrency, amount, convertedValue }));
+                } else {
+                    result.innerText = "Erro ao obter taxa de câmbio.";
+                }
+            } catch (error) {
+                result.innerText = "Erro na conexão com a API.";
+            }
+        });
+
+        function loadLastConversion() {
+            const lastConversion = localStorage.getItem("lastConversion");
+            if (lastConversion) {
+                const { fromCurrency, toCurrency, amount, convertedValue } = JSON.parse(lastConversion);
+                selectFrom.value = fromCurrency;
+                selectTo.value = toCurrency;
+                document.getElementById("amount").value = amount;
+                result.innerText = `${amount} ${fromCurrency} = ${convertedValue} ${toCurrency}`;
+            }
+        }
+
+        loadCurrencies().then(loadLastConversion);
+    </script>
+</body>
+</html>
