@@ -1,52 +1,96 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Poppins', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: #000;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
     color: #fff;
+    margin: 0;
 }
+
 .converter {
-    width: 350px;
-    padding: 20px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+    width: 500px;
+    padding: 25px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     text-align: center;
     animation: fadeIn 1s ease-in-out;
 }
+
 @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.9); }
-    to { opacity: 1; transform: scale(1); }
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
 }
+
 h2 {
     margin-bottom: 15px;
+    font-size: 22px;
+    letter-spacing: 1px;
 }
+
 select, input, button {
     width: 100%;
     margin: 10px 0;
     padding: 12px;
-    border-radius: 5px;
+    border-radius: 8px;
     border: none;
     font-size: 16px;
+    outline: none;
 }
+
 select, input {
     background: rgba(255, 255, 255, 0.2);
-    color: #fff;
+    color: #000000;
+    transition: all 0.3s;
 }
+
+select:focus, input:focus {
+    background: rgba(255, 255, 255, 0.3);
+}
+
 button {
     background: #28a745;
     color: white;
+    font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background 0.3s, transform 0.2s;
 }
+
 button:hover {
     background: #218838;
+    transform: scale(1.05);
 }
+
+#swap {
+    background: transparent;
+    font-size: 22px;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+#swap:hover {
+    transform: rotate(180deg);
+}
+
 #result {
-    font-size: 18px;
+    font-size: 20px;
     margin-top: 15px;
     font-weight: bold;
+    color: #ffeb3b;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.rates {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    text-align: left;
+    font-size: 14px;
+    animation: fadeIn 1s ease-in-out;
 }
