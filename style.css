@@ -33,7 +33,7 @@ h2 {
 
 select, input, button {
     width: 100%;
-    margin: 10px 0;
+    margin: 10px -14px;
     padding: 12px;
     border-radius: 8px;
     border: none;
