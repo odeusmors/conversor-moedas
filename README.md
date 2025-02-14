@@ -65,10 +65,6 @@ O código usa localStorage para armazenar a última conversão.
 
 Se quiser limpar os dados ao recarregar a página, remova localStorage.setItem().
 
-4. Possíveis Melhorias Futuras
 
-✅ Adicionar um seletor de tema claro/escuro.
-✅ Melhorar a interface com ícones de bandeiras das moedas.
-✅ Permitir conversão offline com cache das últimas taxas.
 
 
