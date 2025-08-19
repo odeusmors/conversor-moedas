@@ -8,33 +8,57 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="converter">
-        <h2>Conversor de Moedas</h2>
-        <label for="fromCurrency">De:</label>
-        <select id="fromCurrency"></select>
-        <button id="swap">⇅</button>
-        <label for="toCurrency">Para:</label>
-        <select id="toCurrency"></select>
-        <label for="amount">Valor:</label>
-        <input type="number" id="amount" placeholder="Insira o valor" />
-        <button id="convertButton">Converter</button>
-        <p id="result"></p>
-        <p id="lastUpdate"></p>
-        <div class="rates">
-            <p>Cotação Atual (Atualiza a cada 30s):</p>
-            <p>Dólar: <span id="usdRate">Carregando...</span></p>
-            <p>Bitcoin: <span id="btcRate">Carregando...</span></p>
+    <header>
+        <div class="container header-container">
+            <h1>Conversor de Moedas</h1>
+            <button id="toggleMode" aria-label="Alternar modo claro/escuro">🌙</button>
         </div>
-    </div>
+    </header>
+
+    <main>
+        <div class="converter card">
+            <form id="currencyForm">
+                <label for="fromCurrency">De:</label>
+                <select id="fromCurrency"></select>
+
+                <button type="button" id="swap" title="Inverter moedas">⇅</button>
+
+                <label for="toCurrency">Para:</label>
+                <select id="toCurrency"></select>
+
+                <label for="amount">Valor:</label>
+                <input type="number" id="amount" placeholder="Insira o valor" required />
+
+                <button type="submit" id="convertButton">Converter</button>
+            </form>
+
+            <p id="result"></p>
+            <p id="lastUpdate"></p>
+
+            <div class="rates">
+                <p><strong>Cotação Atual</strong> (atualiza a cada 30s):</p>
+                <p>Dólar: <span id="usdRate">Carregando...</span></p>
+                <p>Bitcoin: <span id="btcRate">Carregando...</span></p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Conversor de Moedas. DEV Luck Noshi. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
     <script>
-        const apiKey = 'b9a7dcaf23d976b7c810acc7'; // Substitua pela sua chave da API
+        const apiKey = 'b9a7dcaf23d976b7c810acc7';
         const apiUrl = `https://v6.exchangerate-api.com/v6/${apiKey}/latest/`;
+
         const selectFrom = document.getElementById("fromCurrency");
         const selectTo = document.getElementById("toCurrency");
         const result = document.getElementById("result");
         const lastUpdate = document.getElementById("lastUpdate");
         const usdRateSpan = document.getElementById("usdRate");
         const btcRateSpan = document.getElementById("btcRate");
+        const form = document.getElementById("currencyForm");
 
         async function loadCurrencies() {
             try {
@@ -82,7 +106,8 @@
             selectTo.value = temp;
         });
 
-        document.getElementById("convertButton").addEventListener("click", async () => {
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
             const fromCurrency = selectFrom.value;
             const toCurrency = selectTo.value;
             const amount = parseFloat(document.getElementById("amount").value);
@@ -126,7 +151,7 @@
         loadCurrencies().then(() => {
             loadLastConversion();
             loadRates();
-            setInterval(loadRates, 30000); // Atualiza a cotação a cada 30 segundos
+            setInterval(loadRates, 30000);
         });
     </script>
 </body>
