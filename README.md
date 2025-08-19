@@ -65,6 +65,31 @@ O código usa localStorage para armazenar a última conversão.
 
 Se quiser limpar os dados ao recarregar a página, remova localStorage.setItem().
 
+# 💱 Conversor de Moedas
+
+Este projeto é uma aplicação simples que permite converter valores entre diferentes moedas em tempo real, utilizando dados de uma API de câmbio.  
+
+---
+
+## 🚀 Tecnologias utilizadas
+- **HTML5** → Estrutura da aplicação  
+- **CSS3** → Layout responsivo e estilização moderna  
+- **JavaScript (Vanilla JS)** → Lógica do conversor e consumo da API de câmbio  
+
+---
+
+## ⚙️ Funcionalidades
+✅ Conversão entre moedas de forma rápida  
+✅ Consulta de taxas de câmbio atualizadas automaticamente  
+✅ Atualização periódica via `setInterval`  
+✅ Interface responsiva (desktop e mobile)  
+✅ Validação de entrada de valores  
+
+---
+
+## 📂 Estrutura de pastas
+
+
 
 
 
