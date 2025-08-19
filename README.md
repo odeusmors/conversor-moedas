@@ -89,6 +89,15 @@ Este projeto é uma aplicação simples que permite converter valores entre dife
 
 ## 📂 Estrutura de pastas
 
+📁 conversor-moedas
+│── index.html # Página principal
+│── css/
+│ └── style.css # Estilos do projeto
+│── js/
+│ └── script.js # Lógica do conversor
+│── imgs/
+│ └── favicon.ico # Ícone do projeto
+└── README.md # Documentação
 
 
 
